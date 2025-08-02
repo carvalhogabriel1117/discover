@@ -85,6 +85,7 @@ body * {
     width: 64px;
     margin: 4px auto;
 }
+
 #switch button {
     width: 32px;
     height: 32px;
@@ -95,12 +96,18 @@ body * {
     position: absolute;
     left: 0;
     z-index: 1;
-    transform: translateY(-12.5%) /* move objetos em posição absoluta */
+    transform: translateY(-12.5%); /* move objetos em posição absoluta */
+    animation: slide-dark 0.3s; /* não adiciona forwards pois já está declarado left: 0 */
 }
 
 .light #switch button {
-    right: 0;
-    left: initial; /* posição inicial do left resetada */
+    /* animação feita com @keyframes slide-in,
+    forwards define que a nimação manterá seu resultado final. */
+    animation: slide-light 0.3s forwards;
+}
+
+#switch button:hover {
+    outline: 8px solid var(--highlight-color); /* adiciona hover ao botão */
 }
 
 #switch span {
@@ -193,5 +200,24 @@ footer {
 
     .light {
         --bg-url: url(./assets/bg-desktop-light.jpg)
+    }
+}
+
+/* animation */
+@keyframes slide-light {
+    from {
+        left: 0;
+    }
+    to {
+        left: 50%
+    }
+}
+
+@keyframes slide-dark {
+    from {
+        left: 50%;
+    }
+    to {
+        left: 0;
     }
 }
